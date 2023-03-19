@@ -50,7 +50,7 @@
             {#if item.Usuario === user}
                 <div class = "element">
                     <div>Task: {item.Nombre}</div>
-                    <div>Name: {item.Descripcion}</div>
+                    <div>Description: {item.Descripcion}</div>
                     <form on:submit={DELETE}>
                         <input type = "submit" value  = "Delete" class ="delete">
                         <input type = "hidden" value = {[item.Nombre, item.Descripcion, item.Usuario]} name = "item">
