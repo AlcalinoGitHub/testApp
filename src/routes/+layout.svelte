@@ -1,2 +1,9 @@
-<a href = "/">home</a>
+<script>
+    import "../global.css";
+  </script>
+
+<a href = "/" class = "layout">home</a>
+
 <slot/>
+
+

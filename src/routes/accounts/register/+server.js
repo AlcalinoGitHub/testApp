@@ -14,12 +14,24 @@ const db = getFirestore();
 const querySnapshot = await getDocs(collection(db, 'Users'));
 
 
+function Validate(username){
+    if (username.length < 1){return false}
+    return true
+}
+
 export async function POST(requestEvent) {
     requestEvent.preventDefault()
     const formData = new FormData(requestEvent.target); // get form data
     const username = formData.get('username');
+
+    let isValid = Validate(username)
+    if(!isValid){alert('username must be at least 1 character long')}
+
     let password = formData.get('password');
+    if (password.length < 5){isValid = false; alert('pasword must be at least 5 characters long')}
+
     password = toString(password)
+
     password = await sha256(password)
 
     const NewUser = {
@@ -34,10 +46,10 @@ export async function POST(requestEvent) {
         let DB_username = (doc.data().username)
         if (username === DB_username) {isAvalible = false}});
 
-    if (isAvalible){
+    if (isAvalible && isValid){
         const userRef = firestore.collection('Users').doc()
         await userRef.set({ username, password });
         console.log('User created:', userRef.id);
         window.location.href = "/accounts/login"
-    } else {alert('User not avalible')}
+    } else if (isValid) {alert('User not avalible')}
 }
