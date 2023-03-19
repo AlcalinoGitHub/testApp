@@ -52,6 +52,7 @@ export async function DELETE(requestEvent){
             }).catch((error) => {
                 console.error('Error removing document:', error);
             });
+            break;
         }
     }
 }
