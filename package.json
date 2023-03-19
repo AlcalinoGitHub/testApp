@@ -22,6 +22,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"crypto-js": "^4.1.1",
 		"firebase": "^9.18.0",
 		"js-cookie": "^3.0.1"
 	}

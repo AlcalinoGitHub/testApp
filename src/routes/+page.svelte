@@ -10,10 +10,8 @@
 
     onMount(async () => {
     const retrievedData = await getData();
-    console.log('retrievedData:', retrievedData);
     data.set(retrievedData);
   });
-
   function LogOut() {Cookies.remove('userCookie'); window.location.href = '/'}
 </script>
 
