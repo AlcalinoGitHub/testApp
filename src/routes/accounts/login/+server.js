@@ -23,6 +23,7 @@ export async function POST(requestEvent) {
     const username = formData.get('username');
     let password = formData.get('password');
     password = hashString(password)
+    console.log(password)
     const NewUser = {
         "username": username,
         "password":password
