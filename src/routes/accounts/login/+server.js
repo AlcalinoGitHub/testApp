@@ -36,9 +36,10 @@ export async function POST(requestEvent) {
         }});
       if (isAuthenticated) {
         Cookies.set('userCookie', username, { expires: 24/24 });
-        alert(`Logged in as ${username}`)
+        window.location.href = "/"
         return true;
     } else {
+        alert('User not found')
         return false;
     }
 }

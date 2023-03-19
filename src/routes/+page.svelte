@@ -23,6 +23,7 @@
 
 {#if isAuth}
   <div> Welcome {Cookies.get('userCookie')}</div>
+  <a href = "/tasks">Tasks</a> <br>
   <button on:click={LogOut}>LogOut</button>
 {/if}
 

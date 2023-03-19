@@ -16,7 +16,6 @@ const querySnapshot = await getDocs(collection(db, 'Users'));
 
 export async function POST(requestEvent) {
     requestEvent.preventDefault()
-
     const formData = new FormData(requestEvent.target); // get form data
     const username = formData.get('username');
     let password = formData.get('password');
@@ -39,6 +38,6 @@ export async function POST(requestEvent) {
         const userRef = firestore.collection('Users').doc()
         await userRef.set({ username, password });
         console.log('User created:', userRef.id);
-        alert('USer created')
+        window.location.href = "/accounts/login"
     } else {alert('User not avalible')}
 }
