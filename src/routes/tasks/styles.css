@@ -1,8 +1,17 @@
 
+@media screen and (orientation: landscape) {
 .main {
     display: flex;
     flex-direction: row;
 }
+}
+
+@media screen and (orientation: portrait) {
+    .main {
+        display: flex;
+        flex-direction: column;
+        }
+    }
 
 .tasks {
     background-color: rgb(218, 216, 216);
@@ -25,6 +34,7 @@
     margin-right: 20px;
     justify-items: center;
     height: fit-content;
+    transition: ease-in-out 200ms;
 }
 
 .element {
@@ -51,8 +61,23 @@
     box-shadow: 0px 0px 5px 1px red;
 }
 
+.toggle {
+    background-color: white;
+    box-shadow: 0px 0px 5px 1px;
+    border: none;
+    padding: 2px;
+    height: fit-content;
+    position: relative;
+    left: 40%;
+    transition: ease-in-out 200ms;
+}
+
+.toggle.rotated{
+    transform: rotate(180deg);
+}
+
 form {
-    font-size: 3vh;
+    font-size: 1vh;
 }
 
 input[type = "submit"] {

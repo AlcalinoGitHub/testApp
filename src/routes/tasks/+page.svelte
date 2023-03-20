@@ -23,6 +23,8 @@ const monthToNumber = {
     import {DELETE} from './+server.js'
     import './styles.css'
 	import { identity } from 'svelte/internal';
+    import {Task} from './createTask.js'
+	import { doc } from 'firebase/firestore';
 
     const getData = async () => {
         const querySnapshot = await firestore.collection('Tasks').get();
@@ -51,6 +53,8 @@ const monthToNumber = {
     let user = Cookies.get('userCookie')
 
     function CheckExpired(date){
+        console.log(date)
+        if (date == undefined || date == null || date == ''){return 'rgb(171, 176, 174 )'}
         let TaskDate = new Date(date)
         let CurrentDate = Date()
         CurrentDate = CurrentDate.split(' ')
@@ -74,8 +78,27 @@ const monthToNumber = {
 
         let element = document.getElementById(`${User}${Nombre}${Desc}${Date}`)
         element.style.display = 'none'
+    }
 
+    async function NewTask(requestEvent){
+        requestEvent.preventDefault()
+        const formData = new FormData(requestEvent.target)
+        const Nombre = formData.get('Nombre')
 
+        if (Nombre){
+            POST(requestEvent)
+            let Div = await Task(requestEvent)
+            let Main = document.getElementsByClassName('tasks')[0]
+            console.log(Div)
+            Main.appendChild(Div)
+        } else {alert('Task name cannot be empty')}
+    }
+
+    function ToggleVisibility(){
+        let Form = document.getElementById('LeTask')
+        if (Form.style.display == 'none'){Form.style.display = "grid"} else {Form.style.display = "none"}
+        let LeButton = document.getElementById('toggle')
+        LeButton.classList.toggle('rotated')
     }
 
 </script>
@@ -90,6 +113,20 @@ const monthToNumber = {
 
 
 <div class = "main">
+
+    <div class = "FORM">
+        <button on:click={ToggleVisibility} class = 'toggle' id = 'toggle'>^</button>
+        <h2>Create a Task</h2>
+        <form on:submit={NewTask} id = "LeTask">
+            <input type ="text" name = "Nombre" placeholder="Nombre"> <br>
+            <textarea name="Descripcion" placeholder="Desc" rows="5" cols="20"></textarea> <br> <small>Due:</small>
+            <input type = "date" name = 'date'>
+            <input type ="hidden" value = {user} name = "Usuario"> 
+            <input type = "submit">
+        </form>
+    </div>
+
+
     <div class = 'tasks'>
         {#each myData as item}
             {#if item.Usuario === user}
@@ -107,14 +144,4 @@ const monthToNumber = {
     </div>
 
 
-    <div class = "FORM">
-        <h2>Create a Task</h2>
-        <form on:submit={POST}>
-            <input type ="text" name = "Nombre" placeholder="Nombre"> <br>
-            <textarea name="Descripcion" placeholder="Desc" rows="5" cols="20"></textarea> <br> <small>Due:</small>
-            <input type = "date" name = 'date'>
-            <input type ="hidden" value = {user} name = "Usuario"> 
-            <input type = "submit">
-        </form>
-    </div>
 </div>

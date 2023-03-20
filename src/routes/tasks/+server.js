@@ -25,11 +25,11 @@ export async function POST(requestEvent){ //create a task
     const userRef = firestore.collection('Tasks').doc()
     await userRef.set({ Usuario, Descripcion, Nombre, Date });
 
-    window.location.href = "/tasks"
 
 }
 
 export async function DELETE(requestEvent){
+    console.log(requestEvent)
     requestEvent.preventDefault()
     const formData = new FormData(requestEvent.target)
     const item = formData.get('item').split(',')
