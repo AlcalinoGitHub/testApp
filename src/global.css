@@ -1,6 +1,6 @@
-html {
-    zoom: 2.7;
-  }
+
+
+
 
 body {
     font-family: Arial, sans-serif;
@@ -16,7 +16,7 @@ body {
     text-align: center;
     color: white;
     padding: 2px;
-    position: fixed;
+    position: absolute;
     top: 1%;
 }
   
@@ -64,13 +64,19 @@ button:hover {
         top: 28vh;
         left: 65vh
     }
+    html {
+        zoom: 2.7;
+      }
 }
 
 @media screen and (orientation: portrait) {
     .Logo {
         width: 7vh;
         position: absolute;
-        top: 28vh;
-        left: 24vh
+        top: 30%;
+        left:15%;
     }
+    html {
+    zoom: 1.5;
+  }
 }
