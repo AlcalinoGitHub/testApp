@@ -1,4 +1,20 @@
 <script>
+const monthToNumber = {
+  'Jan': '01',
+  'Feb': '02',
+  'Mar': '03',
+  'Apr': '04',
+  'May': '05',
+  'Jun': '06',
+  'Jul': '07',
+  'Aug': '08',
+  'Sep': '09',
+  'Oct': '10',
+  'Nov': '11',
+  'Dec': '12'
+};
+
+
     import { onMount } from 'svelte';
     import Cookies from 'js-cookie';
     import {POST} from './+server.js'
@@ -29,10 +45,21 @@
 
     const unsubscribe = dataStore.subscribe(value => {
         myData = value;
-        console.log(myData);
     });   
 
     let user = Cookies.get('userCookie')
+
+    function CheckExpired(date){
+        let TaskDate = new Date(date)
+        let CurrentDate = Date()
+        CurrentDate = CurrentDate.split(' ')
+        CurrentDate = CurrentDate.slice(1, 4)
+        CurrentDate[0] = monthToNumber[CurrentDate[0]]
+        let TimeStamp = `${CurrentDate[2]}-${CurrentDate[0]}-${CurrentDate[1]}`
+        TimeStamp = new Date(TimeStamp)
+        console.log(TaskDate > TimeStamp)
+        if (!(TaskDate > TimeStamp)){return 'rgb(255, 82, 82)'} else {return 'rgb(167, 255, 222)'}
+    }
 
     
 </script>
@@ -50,7 +77,7 @@
     <div class = 'tasks'>
         {#each myData as item}
             {#if item.Usuario === user}
-                <div class = "element">
+                <div class="element" style="box-shadow: 0px 0px 5px 1px {CheckExpired(item.Date)};">
                     <div>Task: {item.Nombre}</div>
                     <div>Description: {item.Descripcion}</div>
                     <div>Due: {item.Date}</div>
