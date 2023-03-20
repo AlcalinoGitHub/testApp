@@ -53,9 +53,10 @@
                 <div class = "element">
                     <div>Task: {item.Nombre}</div>
                     <div>Description: {item.Descripcion}</div>
+                    <div>Due: {item.Date}</div>
                     <form on:submit={DELETE}>
                         <input type = "submit" value  = "Delete" class ="delete">
-                        <input type = "hidden" value = {[item.Nombre, item.Descripcion, item.Usuario]} name = "item">
+                        <input type = "hidden" value = {[item.Nombre, item.Descripcion, item.Usuario, item.Date]} name = "item">
                     </form> <br>
                 </div>
             {/if}
@@ -67,7 +68,8 @@
         <h2>Create a Task</h2>
         <form on:submit={POST}>
             <input type ="text" name = "Nombre" placeholder="Nombre"> <br>
-            <textarea name="Descripcion" placeholder="Desc" rows="5" cols="20"></textarea>
+            <textarea name="Descripcion" placeholder="Desc" rows="5" cols="20"></textarea> <br> <small>Due:</small>
+            <input type = "date" name = 'date'>
             <input type ="hidden" value = {user} name = "Usuario"> 
             <input type = "submit">
         </form>
