@@ -22,6 +22,7 @@ const monthToNumber = {
     import { writable } from 'svelte/store';
     import {DELETE} from './+server.js'
     import './styles.css'
+	import { identity } from 'svelte/internal';
 
     const getData = async () => {
         const querySnapshot = await firestore.collection('Tasks').get();
@@ -61,7 +62,22 @@ const monthToNumber = {
         if (!(TaskDate > TimeStamp)){return 'rgb(255, 82, 82)'} else {return 'rgb(167, 255, 222)'}
     }
 
-    
+    function DeleteTask(requestEvent){
+        DELETE(requestEvent)
+        requestEvent.preventDefault()
+        const formData = new FormData(requestEvent.target)
+        const item = formData.get('item').split(',')
+        let Nombre = item[0]
+        let Desc = item[1]
+        let User = item[2]
+        let Date = item[3]
+
+        let element = document.getElementById(`${User}${Nombre}${Desc}${Date}`)
+        element.style.display = 'none'
+
+
+    }
+
 </script>
 
 
@@ -77,11 +93,11 @@ const monthToNumber = {
     <div class = 'tasks'>
         {#each myData as item}
             {#if item.Usuario === user}
-                <div class="element" style="box-shadow: 0px 0px 5px 1px {CheckExpired(item.Date)};">
+                <div class="element" style="box-shadow: 0px 0px 5px 1px {CheckExpired(item.Date)};" id = "{item.Usuario}{item.Nombre}{item.Descripcion}{item.Date}">
                     <div>Task: {item.Nombre}</div>
                     <div>Description: {item.Descripcion}</div>
                     <div>Due: {item.Date}</div>
-                    <form on:submit={DELETE}>
+                    <form on:submit={DeleteTask}>
                         <input type = "submit" value  = "Delete" class ="delete">
                         <input type = "hidden" value = {[item.Nombre, item.Descripcion, item.Usuario, item.Date]} name = "item">
                     </form> <br>

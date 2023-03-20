@@ -51,7 +51,7 @@ export async function DELETE(requestEvent){
             console.log(current.id)
             let docRef = firestore.collection('Tasks').doc(current.id);
             docRef.delete().then(() => {
-                console.log('Document successfully deleted!'); window.location.href = '/tasks'
+                console.log('Document successfully deleted!'); //window.location.href = '/tasks'
             }).catch((error) => {
                 console.error('Error removing document:', error);
             });
