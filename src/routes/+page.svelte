@@ -12,8 +12,13 @@
     onMount(async () => {
     const retrievedData = await getData();
     data.set(retrievedData);
+    
   });
-  function LogOut() {Cookies.remove('userCookie'); window.location.href = '/'}
+  function LogOut() {
+    Cookies.set('userCookie', username, { expires: 0/24 });
+    Cookies.remove('userCookie')
+    window.location.href = '/'
+  }
 
 
 </script>

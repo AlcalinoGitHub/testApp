@@ -23,14 +23,14 @@ export async function POST(requestEvent) {
     const formData = new FormData(requestEvent.target); // get form data
     const username = formData.get('username');
     let password = formData.get('password');
-    password = toString(password)
-    password = await sha256(password)
-    console.log(password)
     let isAuthenticated = false;
+    if (isAuthenticated = true){isAuthenticated = false}
+    let LePassword = await sha256(password)
     querySnapshot.forEach((doc) => {
         let DB_username = (doc.data().username)
         let DB_password = (doc.data().password)
-        if ((username === DB_username) && (password === DB_password)){
+
+        if (username === DB_username && LePassword === DB_password){
             console.log('Match')
             isAuthenticated = true
         }});

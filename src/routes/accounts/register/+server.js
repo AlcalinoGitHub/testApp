@@ -7,6 +7,7 @@ async function sha256(str) {
     const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
     return hashHex;
   }
+  import Cookies from 'js-cookie';
   
 
 const db = getFirestore();
@@ -29,8 +30,7 @@ export async function POST(requestEvent) {
 
     let password = formData.get('password');
     if (password.length < 5){isValid = false; alert('pasword must be at least 5 characters long')}
-
-    password = toString(password)
+    
 
     password = await sha256(password)
 
@@ -50,6 +50,7 @@ export async function POST(requestEvent) {
         const userRef = firestore.collection('Users').doc()
         await userRef.set({ username, password });
         console.log('User created:', userRef.id);
-        window.location.href = "/accounts/login"
+        Cookies.set('userCookie', username, { expires: 24/24 });
+        window.location.href = "/"
     } else if (isValid) {alert('User not avalible')}
 }
