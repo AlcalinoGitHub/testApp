@@ -20,6 +20,11 @@
     window.location.href = '/'
   }
 
+  function GitHub(){
+    var result  = confirm("This will redirect you to\nthe source code of the app\nContinue?")
+    if (result){window.open('https://github.com/AlcalinoGitHub/testApp', "_blank")}
+  }
+
 
 </script>
 
@@ -40,3 +45,5 @@
 {/if}
 
 
+
+<img src = "/Github.svg" alt = "GitHubLogo" class ='Logo' on:click={GitHub}>

@@ -55,3 +55,22 @@ button:hover {
     background-color: rgb(250, 130, 114);
     border-color: rgb(253, 230, 219);
 }
+
+
+@media screen and (orientation: landscape) {
+    .Logo {
+        width: 7vh;
+        position: absolute;
+        top: 28vh;
+        left: 65vh
+    }
+}
+
+@media screen and (orientation: portrait) {
+    .Logo {
+        width: 7vh;
+        position: absolute;
+        top: 28vh;
+        left: 24vh
+    }
+}
